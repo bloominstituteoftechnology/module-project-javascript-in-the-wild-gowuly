@@ -29,9 +29,32 @@
     // ❗ Notes
     // 🧠 Try using destructuring to grab a reference to the first element of the array
     // 🧠 Try using the at method of arrays to grab the last element
-    const swapper = () => {
 
+        const swapper = (arr) => {
+        
+      // Check if the array has fewer than two elements
+      if (arr.length < 2) {
+        return "No swap performed";
+      }
+
+      // Use destructuring to grab a reference to the first element
+      let [first] = arr;
+
+      // Use the at method to grab the last element
+      let last = arr.at(-1);
+
+      // Swap the first and last elements
+      arr[0] = last;
+      arr[arr.length - 1] = first;
+
+      return arr;
     }
+
+          console.log(swapper(['a', 'b'])); // Outputs: ['b', 'a']
+          console.log(swapper(['a', 'b', 'c'])); // Outputs: ['c', 'b', 'a']
+          console.log(swapper(['a'])); // Outputs: "No swap performed"
+
+    
 
     // 👉 CHALLENGE 2
     // 🧠 The function headAndTail takes an array as its argument.
@@ -46,9 +69,18 @@
     // 🧠 Try using the ternary operator instead of a conditional statement when deciding what to return.
     // 🧠 So instead of doing `if ('foo') return 'bar' else return 'baz'` do `return 'foo' ? 'bar' : 'baz'`
     // 🧠 The above recommendations allow to write the whole function body in just two clean lines!
-    const headAndTail = () => {
+    const headAndTail = (arr) => {
+            // Use destructuring and the spread operator to get the head and tail
+    let [head, ...tail] = arr;
 
-    }
+          // Use the ternary operator to decide what to return
+    return arr.length > 0 ? [head, tail] : "This array is empty";
+          }
+
+    console.log(headAndTail([1, 2, 3])); // Outputs: [1, [2, 3]]
+    console.log(headAndTail([])); // Outputs: "This array is empty"
+
+    
 
     // 👉 CHALLENGE 3
     // 🧠 The function devGreet takes an isFrontend Boolean, and an isHappy Boolean, as arguments.
@@ -59,9 +91,21 @@
     // devGreet(false, false) // should return "Hey, I am a backend dev and I am sad"
     // ❗ Notes
     // 🧠 Use ternary expressions to construct the string.
-    const devGreet = () => {
 
-    }
+  const devGreet = (isFrontend, isHappy) => {
+  // Use ternary expressions to construct the string
+  let devType = isFrontend ? 'frontend' : 'backend';
+  let mood = isHappy ? 'happy' : 'sad';
+
+  return `Hey, I am a ${devType} dev and I am ${mood}`;
+}
+
+      console.log(devGreet(true, true)); // Outputs: "Hey, I am a frontend dev and I am happy"
+      console.log(devGreet(true, false)); // Outputs: "Hey, I am a frontend dev and I am sad"
+      console.log(devGreet(false, true)); // Outputs: "Hey, I am a backend dev and I am happy"
+      console.log(devGreet(false, false)); // Outputs: "Hey, I am a backend dev and I am sad"
+
+    
 
     // 👉 CHALLENGE 4
     // 🧠 The function recognize takes an object representing a user.
@@ -72,9 +116,19 @@
     // recognize({}) // should return "Hidden Person Rocks!"
     // ❗ Notes
     // 🧠 Try using destructuring to grab the name, and a return followed by a ternary expression.
-    const recognize = () => {
+    
+        const recognize = (user) => {
+        // Use destructuring to grab the name
+        let { name } = user;
 
-    }
+        // Use a return followed by a ternary expression
+        return name ? `${name} Rules!` : "Hidden Person Rocks!";
+      }
+
+          console.log(recognize({ name: 'Katherine Johnson' })); // Outputs: "Katherine Johnson Rules!"
+          console.log(recognize({})); // Outputs: "Hidden Person Rocks!"
+
+    
 
     // 👉 CHALLENGE 5
     // 🧠 The function processBooleans takes an array of Booleans represented using integers (1/0 instead of true/false)
@@ -83,9 +137,15 @@
     // processBooleans([1, 0, 0, 1, 0]) // should return ["Y", "N", "N", "Y", "N"]
     // ❗ Notes
     // 🧠 Using map, arrow function syntax, and the ternary, you can make this function a short one-liner
-    const processBooleans = () => {
 
-    }
+    const processBooleans = (arr) => {
+      // Use map, arrow function syntax, and the ternary to transform the array
+    return arr.map(num => num ? "Y" : "N");
+  }
+
+         console.log(processBooleans([1, 0, 0, 1, 0])); // Outputs: ["Y", "N", "N", "Y", "N"]
+
+    
 
     // 👉 CHALLENGE 6
     // 🧠 The function reverseString takes a string as its argument, and returns it reversed.
@@ -97,9 +157,26 @@
     // 🧠 Split the string but do not use the reverse method of arrays. Let's do it manually.
     // 🧠 We suggest using a for loop. Research how to loop backwards over an array, starting at the last element.
     // 🧠 Use a ternary in the return statement.
-    const reverseString = () => {
+        const reverseString = (str) => {
 
+      let reversed = '';
+      
+      // Loop backwards over the string, starting at the last character
+      for (let i = str.length - 1; i >= 0; i--) {
+        reversed += str[i];
+      }
+
+      // Check if the string is a palindrome
+      let isPalindrome = str === reversed;
+
+      // Use a ternary in the return statement
+      return isPalindrome ? "It's a palindrome!" : reversed;
     }
+
+          console.log(reverseString('Hello, World')); // Outputs: "dlroW ,olleH"
+          console.log(reverseString('madam')); // Outputs: "It's a palindrome!"
+
+    
 
     // 👉 CHALLENGE 7
     // 🧠 The function zip receives three arrays as arguments. The three arrays are of the same length (which could be any length).
@@ -113,9 +190,36 @@
     // ❗ Notes
     // 🧠 Even though object properties have no particular order, to avoid confusing
     // the test runner, please set in each object first name, then age, and finally jsLover.
-    const zip = () => {
-
+    const zip = (names, years, booleanValues) => {
+    // Check if all arrays are of the same length
+    if (names.length !== years.length || names.length !== booleanValues.length) {
+        throw new Error('All arrays must be of the same length');
     }
+
+    // Initialize an empty array to store the result
+    const result = [];
+
+    // Iterate through the arrays
+    for (let i = 0; i < names.length; i++) {
+        // Construct an object for each set of values
+        const obj = {
+            name: names[i],
+            born: years[i],
+            jsLover: booleanValues[i]
+        };
+        // Push the object into the result array
+        result.push(obj);
+    }
+
+    // Return the result array
+    return result;
+  }
+
+        // Example of usage
+        console.log(zip(['Joe', 'Anna'], [1987, 1955], [true, false]));
+        // Output: [{ name: 'Joe', born: 1987, jsLover: true }, { name: 'Anna', born: 1955, jsLover: false }]
+
+    
 
     // 🧪 TESTS, do not work below this line
     // 🧪 TESTS, do not work below this line
